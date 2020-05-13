@@ -4,28 +4,136 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Twitch OAuth Serverless Example</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol';
+      }
+
+      main,
+      footer {
+        margin: 5rem auto 0;
+        max-width: 650px;
+        width: 90vw;
+      }
+
+      form {
+        border: 1px solid gray;
+        border-radius: 0.25rem;
+        padding: 1rem;
+      }
+
+      label,
+      input,
+      button {
+        display: block;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      label {
+        font-weight: 500;
+      }
+
+      input,
+      button {
+        border-radius: 0.25rem;
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+      }
+
+      input {
+        border: 1px solid gray;
+      }
+
+      button {
+        background: navy;
+        border: none;
+        color: white;
+        font-weight: 800;
+      }
+
+      pre {
+        background: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 0.25rem;
+        font-size: 1.125rem;
+        overflow-x: scroll;
+        padding: 1rem;
+      }
+
+      footer {
+        font-size: 0.875rem;
+        margin-bottom: 3rem;
+        margin-top: 3rem;
+        text-align: center;
+      }
+
+      code {
+        font-size: 1.125rem;
+      }
+
+      footer a {
+        display: inline-block;
+        margin-top: 1rem;
+      }
+
+      @media (min-width: 650px) {
+        form {
+          align-items: baseline;
+          display: grid;
+          gap: 1em;
+          grid-template-columns: 130px 1fr 180px;
+        }
+
+        input,
+        button {
+          margin-top: 0;
+        }
+
+        footer a {
+          margin-top: 0;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Load Stream Data from Twitch Using OAuth and Serverless Functions</h1>
+    <main>
+      <h1>Load Stream Data from Twitch Using OAuth and Serverless Functions</h1>
 
-    <p>
-      Leave the form blank to load info about currently live streams, or enter a
-      username to load data about a specific user’s stream (returns empty if
-      that stream is not currently live).
-    </p>
+      <p>
+        Leave the form blank to load info about currently live streams, or enter
+        a username to load data about a specific user’s stream (returns empty if
+        that stream is not currently live).
+      </p>
 
-    <form>
-      <label for="user_login">Twitch Username</label>
-      <input type="text" id="user_login" name="user_login" />
+      <form>
+        <label for="user_login">Twitch Username</label>
+        <input type="text" id="user_login" name="user_login" />
 
-      <button>Fetch Stream Data</button>
-    </form>
+        <button>Fetch Stream Data</button>
+      </form>
 
-    <h2>Response</h2>
-    <pre>submit the form to see the response here</pre>
+      <h2>Response</h2>
+      <pre>submit the form to see the response here</pre>
+    </main>
+
+    <footer>
+      Built by <a href="https://jason.af">Jason Lengstorf</a> using
+      <a href="https://www.npmjs.com/package/@jlengstorf/get-twitch-oauth"
+        ><code>@jlengstorf/get_twitch-oauth</code></a
+      >
+    </footer>
 
     <script>
       document.querySelector('form').addEventListener('submit', (event) => {
+        event.preventDefault();
+
         const data = new FormData(event.target);
         const form = document.querySelector('form');
         const output = document.querySelector('pre');
