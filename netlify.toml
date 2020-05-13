@@ -1,0 +1,8 @@
+[build]
+  command = "npm i --prefix=functions"
+  publish = "site"
+  functions = "functions"
+
+[template.environment]
+  TWITCH_CLIENT_ID = "your Twitch app’s client ID"
+  TWITCH_CLIENT_SECRET = "your Twitch app’s client secret"

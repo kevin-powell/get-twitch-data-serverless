@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitch OAuth Serverless Example</title>
+  </head>
+  <body>
+    <h1>Load Stream Data from Twitch Using OAuth and Serverless Functions</h1>
+
+    <p>
+      Leave the form blank to load info about currently live streams, or enter a
+      username to load data about a specific user’s stream (returns empty if
+      that stream is not currently live).
+    </p>
+
+    <form>
+      <label for="user_login">Twitch Username</label>
+      <input type="text" id="user_login" name="user_login" />
+
+      <button>Fetch Stream Data</button>
+    </form>
+
+    <h2>Response</h2>
+    <pre>submit the form to see the response here</pre>
+
+    <script>
+      document.querySelector('form').addEventListener('submit', (event) => {
+        const data = new FormData(event.target);
+        const form = document.querySelector('form');
+        const output = document.querySelector('pre');
+
+        fetch('/.netlify/functions/get-stream-data', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_login: data.get('user_login') }),
+        })
+          .then((res) => res.json())
+          .then((response) => {
+            output.innerText = JSON.stringify(response, null, 2);
+          })
+          .catch((error) => {
+            output.innerText = JSON.stringify(error, null, 2);
+          });
+      });
+    </script>
+  </body>
+</html>
